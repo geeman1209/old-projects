@@ -9,7 +9,7 @@ namespace BattleShip.BLL.GameLogic
 {
     public class Board
     {
-        private Dictionary<Coordinate, ShotHistory> ShotHistory;
+        public Dictionary<Coordinate, ShotHistory> ShotHistory;
         private int _currentShipIndex;
 
         public Ship[] Ships { get; private set; }

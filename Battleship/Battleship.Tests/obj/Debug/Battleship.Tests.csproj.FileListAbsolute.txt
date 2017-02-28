@@ -7,3 +7,12 @@ D:\Git\Curriculum\dotnet\ObjectOrientedProgramming\02-Classes-And-Objects\Assess
 D:\Git\Curriculum\dotnet\ObjectOrientedProgramming\02-Classes-And-Objects\Assessments\Battleship\BattleShip_Start\Battleship.Tests\obj\Debug\Battleship.Tests.csprojResolveAssemblyReference.cache
 D:\Git\Curriculum\dotnet\ObjectOrientedProgramming\02-Classes-And-Objects\Assessments\Battleship\BattleShip_Start\Battleship.Tests\obj\Debug\Battleship.Tests.dll
 D:\Git\Curriculum\dotnet\ObjectOrientedProgramming\02-Classes-And-Objects\Assessments\Battleship\BattleShip_Start\Battleship.Tests\obj\Debug\Battleship.Tests.pdb
+C:\Users\gabreu\Documents\BitBucket\gabriel-abreu-individual-work\Battleship\Battleship.Tests\bin\Debug\Battleship.Tests.dll
+C:\Users\gabreu\Documents\BitBucket\gabriel-abreu-individual-work\Battleship\Battleship.Tests\bin\Debug\Battleship.Tests.pdb
+C:\Users\gabreu\Documents\BitBucket\gabriel-abreu-individual-work\Battleship\Battleship.Tests\bin\Debug\BattleShip.BLL.dll
+C:\Users\gabreu\Documents\BitBucket\gabriel-abreu-individual-work\Battleship\Battleship.Tests\bin\Debug\nunit.framework.dll
+C:\Users\gabreu\Documents\BitBucket\gabriel-abreu-individual-work\Battleship\Battleship.Tests\bin\Debug\BattleShip.BLL.pdb
+C:\Users\gabreu\Documents\BitBucket\gabriel-abreu-individual-work\Battleship\Battleship.Tests\bin\Debug\nunit.framework.xml
+C:\Users\gabreu\Documents\BitBucket\gabriel-abreu-individual-work\Battleship\Battleship.Tests\obj\Debug\Battleship.Tests.csprojResolveAssemblyReference.cache
+C:\Users\gabreu\Documents\BitBucket\gabriel-abreu-individual-work\Battleship\Battleship.Tests\obj\Debug\Battleship.Tests.dll
+C:\Users\gabreu\Documents\BitBucket\gabriel-abreu-individual-work\Battleship\Battleship.Tests\obj\Debug\Battleship.Tests.pdb
