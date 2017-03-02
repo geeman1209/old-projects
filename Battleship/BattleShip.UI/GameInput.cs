@@ -51,7 +51,7 @@ namespace BattleShip.UI
             {
                 if ((int.TryParse(xCoord, out x)))
                 {
-                    return new Coordinate(x, y);
+                    return new Coordinate(y, x);
                 }
                 else
                 {

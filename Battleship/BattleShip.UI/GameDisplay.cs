@@ -26,10 +26,10 @@ namespace BattleShip.UI
 
             while (c <= 'J')
             {
-                for (int numCol = 1; numCol <= 10; numCol++)
+                for (int letterRow = 1; letterRow <= 10; letterRow++)
                 {
                     Console.Write($"\n|{c++}");
-                    for (int letterRow = 1; letterRow <= 10; letterRow++)
+                    for (int numCol = 1; numCol <= 10; numCol++)
                     {
                         Coordinate shot = new Coordinate(letterRow, numCol);
 
