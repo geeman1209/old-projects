@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using BattleShip.BLL.Requests;
 
 namespace BattleShip.UI
@@ -31,29 +32,39 @@ namespace BattleShip.UI
         {
             int x;
             int y;
-            Console.WriteLine("Please enter your coordinates: x is A-J, y is 1-10");
+            Console.WriteLine("Please enter your coordinates: x is 1-10, y is A-J...enter coordinates as follows A1, B1, etc.");
             string coord = Console.ReadLine();
-            string xCoord = coord.Substring(0, 1).ToLower();
-            string yCoord = coord.Substring(1, coord.Length - 1);
 
-            x = CoordConverter(xCoord);
+            if (string.IsNullOrEmpty(coord))
+            {
+                Console.WriteLine("Empty coordinates are not valid");
+                Console.WriteLine("Please enter your coordinates: x is 1-10, y is A-J...enter coordinates as follow A1, B1, etc.");
+                coord = Console.ReadLine();
+            }
+
+            string yCoord = coord.Substring(0, 1).ToLower();
+            string xCoord = coord.Substring(1, coord.Length - 1);
+            
+            y = CoordConverter(yCoord);
+
             while (true)
             {
-                if ((int.TryParse(yCoord, out y)))
+                if ((int.TryParse(xCoord, out x)))
                 {
                     return new Coordinate(x, y);
                 }
                 else
                 {
-                    Console.WriteLine("You did not enter valid coordinates");
-                }
+                    Console.WriteLine("Please enter valid coordinates");
+                    break;                    
+                }   
             }
-            
+            return GetSuperSecretCoordinates();
         }
 
-        public int CoordConverter(string xCoord)
+        public int CoordConverter(string yCoord)
         {
-            switch (xCoord)
+            switch (yCoord)
             {
                 case "a":
                     return 1;

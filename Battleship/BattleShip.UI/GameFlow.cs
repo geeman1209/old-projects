@@ -46,9 +46,13 @@ namespace BattleShip.UI
         {
             Random _turn = new Random();
             int x = _turn.Next(1, 3);
-            if (x <= 2)
+            if (x < 2)
             {
                 _isTurn = false;
+            }
+            else
+            {
+                _isTurn = true;
             }
 
         }
@@ -131,10 +135,15 @@ namespace BattleShip.UI
                         Console.WriteLine("Hooray!!! You've sunk all of the opposing ships! You won!...Go get yourself something nice, you've earned it!");
                         Console.WriteLine("Would you like to play again?!? yes or no");
                         string answer = Console.ReadLine();
-                        if (answer.ToLower() == "no")
+                        if (answer.ToLower() != "yes")
                         {
                             _gameEnd = true;
                             _gameVictory = true;
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            Start();
                         }
 
                         return;
