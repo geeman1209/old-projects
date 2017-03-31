@@ -35,11 +35,11 @@ namespace BattleShip.UI
             Console.WriteLine("Please enter your coordinates: x is 1-10, y is A-J...enter coordinates as follows A1, B1, etc.");
             string coord = Console.ReadLine();
 
-            if (string.IsNullOrEmpty(coord))
+            while (string.IsNullOrEmpty(coord))
             {
-                Console.WriteLine("Empty coordinates are not valid");
-                Console.WriteLine("Please enter your coordinates: x is 1-10, y is A-J...enter coordinates as follow A1, B1, etc.");
-                coord = Console.ReadLine();
+                    Console.WriteLine("Empty coordinates are not valid");
+                    Console.WriteLine("Please enter your coordinates: x is 1-10, y is A-J...enter coordinates as follow A1, B1, etc.");
+                    coord = Console.ReadLine();
             }
 
             string yCoord = coord.Substring(0, 1).ToLower();
