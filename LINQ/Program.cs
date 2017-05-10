@@ -10,14 +10,14 @@ namespace LINQ
 
         static void Main()
         {
-            PrintAllProducts();
-              List<Product> allProducts = DataLoader.LoadProducts();
-              allProducts.OrderBy(prod => prod.ProductID).ToList().ForEach(prod => { Console.WriteLine(prod.ProductID +" "+ prod.ProductName); });
+             PrintAllProducts();
+               List<Product> allProducts = DataLoader.LoadProducts();
+               allProducts.OrderBy(prod => prod.ProductID).ToList().ForEach(prod => { Console.WriteLine(prod.ProductID +" "+ prod.ProductName); });
 
-            PrintAllCustomers();
-       List<Customer> allCusties = DataLoader.LoadCustomers();
-       allCusties.OrderBy(cust => cust.CustomerID).ToList().ForEach(cust => { Console.WriteLine(cust.CustomerID + " " + cust.CompanyName); });
-    
+             PrintAllCustomers();
+        List<Customer> allCusties = DataLoader.LoadCustomers();
+        allCusties.OrderBy(cust => cust.CustomerID).ToList().ForEach(cust => { Console.WriteLine(cust.CustomerID + " " + cust.CompanyName); });
+     
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
         }
@@ -378,15 +378,13 @@ namespace LINQ
         /// </summary>
         static void Exercise15()
         {
-            int[] numC = DataLoader.NumbersC;
 
-            var takeNum = (from num in numC
-                           select num).Skip(4);
+            List<int> numbers = DataLoader.NumbersC.SkipWhile(x => x % 3 != 0).Skip(1).ToList();
 
-            foreach(var numBa in takeNum)
+            foreach(var numBa in numbers)
             {
                 Console.WriteLine(numBa);
-            }
+            }  
 
         }
 
