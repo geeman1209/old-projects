@@ -11,7 +11,7 @@ namespace SGBank.Data
 {
     public class FileAccountRepository : IAccountRepository
     {
-        private string _path = @"C:\Users\gabreu\Documents\BitBucket\gabriel-abreu-individual-work\SGBank";
+        private string _path = @"C:\Users\gabreu\Documents\BitBucket\gabriel-abreu-individual-work\SGBank\Accounts.txt";
 
         public FileAccountRepository(string path)
         {
