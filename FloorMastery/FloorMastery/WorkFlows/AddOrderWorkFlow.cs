@@ -47,8 +47,9 @@ namespace FloorMastery.WorkFlows
             ConsoleIO.ApplyProduct(prodresponse.products, newishOrder);
 
             int area = ConsoleIO.GetArea();
-
             newishOrder.Area = area;
+
+            PutitAllTogether(newishOrder);
 
             ConsoleIO.DisplayOneOrder(newishOrder);
             string userAnswer = ConsoleIO.GetYesorNo();
@@ -75,6 +76,18 @@ namespace FloorMastery.WorkFlows
             Console.WriteLine("Press any key to continue");
             Console.ReadKey();
 
+        }
+
+        public Order PutitAllTogether (Order order)
+        {
+            CalculateTotals calculator = new CalculateTotals();
+
+            order.MaterialCost = calculator.MaterialCost(order);
+            order.LaborCost = calculator.LaborCost(order);
+            order.Tax = calculator.Tax(order);
+            order.Total = calculator.Total(order);
+
+            return order;
         }
     }
 }

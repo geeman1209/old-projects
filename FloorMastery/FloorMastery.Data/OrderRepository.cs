@@ -10,20 +10,10 @@ namespace FloorMastery.Data
 {
     public class OrderRepository : IOrder
     {
-        public static List<Order> publicOrders;
-
-        public OrderRepository()
+        public static List<Order> publicOrders = new List<Order>
         {
-            List<Order> publicOrders = new List<Order>();
-            if(publicOrders.Count == 0)
+            new Order ()
             {
-                publicOrders.Add(_order);
-                publicOrders.Add(_orderDos);
-            }
-        }
-
-        private static Order _order = new Order
-        {
             OrderDate = new DateTime(2017, 03, 03),
             OrderNumber = 1,
             CustomerName = "Donald Duck",
@@ -32,12 +22,10 @@ namespace FloorMastery.Data
             ProductType = "Wood",
             Area = 100M,
             CostPerSquareFoot = 5.15M,
-            LaborCostPerSquareFoot = 4.75M,
-        };
-
-        private static Order _orderDos = new Order
-        {
-            OrderDate = new DateTime(2017, 03, 03),
+            LaborCostPerSquareFoot = 4.75M,},
+            new Order ()
+            {
+             OrderDate = new DateTime(2017, 03, 03),
             OrderNumber = 2,
             CustomerName = "DarkWing Duck",
             State = "OH",
@@ -46,33 +34,22 @@ namespace FloorMastery.Data
             Area = 100M,
             CostPerSquareFoot = 5.15M,
             LaborCostPerSquareFoot = 4.75M,
+            }
         };
 
         public List<Order> ShowOrders(DateTime orderDate)
         {
-            List<Order> order = new List<Order>();
-
-            if (orderDate != _order.OrderDate)
-            {
-                return null;
-            }
-            else
-            {
-                order.Add(_order);
-                order.Add(_orderDos);
-            }
-
-            return order;
+            // List<Order> order = new List<Order>();
+            return publicOrders.Where(o => o.OrderDate == orderDate).ToList();
         }
 
         public Order AddOrder(Order order, DateTime orderDate)
         {
             List<Order> orders = ShowOrders(orderDate);
 
-            if(orders == null)
+            if(orders.Count == 0)
             {
-                orders = new List<Order>();
-                orders.Add(order);
+                publicOrders.Add(order);
                 order.OrderNumber = 1;
                 return order;
             }
@@ -81,7 +58,7 @@ namespace FloorMastery.Data
                 order.OrderNumber = orders.Max(o => o.OrderNumber) + 1;
             }
 
-            orders.Add(order);
+            publicOrders.Add(order);
             return order;
         }
 
@@ -94,7 +71,7 @@ namespace FloorMastery.Data
             int specificO = orders.FindIndex(o => o.OrderNumber == order.OrderNumber);
 
             //save the specific order 
-             return order = orders[specificO];
+            return  order = orders[specificO];
         }
 
         public void DeleteOrder(DateTime orderDate, int orderNumber)

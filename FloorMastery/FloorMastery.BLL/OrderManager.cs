@@ -22,7 +22,7 @@ namespace FloorMastery.BLL
         {
             OrderLookupResponse response = new OrderLookupResponse();
 
-            response.Order = _orderRepo.ShowOrders(orderDate);
+            response.Order =_orderRepo.ShowOrders(orderDate);
 
             if(response.Order == null)
             {

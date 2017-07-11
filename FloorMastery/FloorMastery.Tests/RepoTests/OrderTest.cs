@@ -1,4 +1,5 @@
 ﻿using FloorMastery.BLL;
+using FloorMastery.Data;
 using FloorMastery.Models;
 using FloorMastery.Models.Responses;
 using NUnit.Framework;
@@ -16,9 +17,10 @@ namespace FloorMastery.Tests
         [Test]
         public void CanLoadOrderData()
         {
-            OrderManager manager = OrderManagerFactory.Create();
+            OrderManager manager = new OrderManager(new OrderRepository(), new ProductRepository(), new TaxesRepository());
+            DateTime date = new DateTime(2017, 03, 03);
 
-            OrderLookupResponse response = manager.LookupOrders(DateTime.Parse("03-03-2017"));
+            OrderLookupResponse response = manager.LookupOrders(date);
 
             Assert.IsNotNull(response.Order);
             Assert.IsTrue(response.Success);
@@ -29,7 +31,7 @@ namespace FloorMastery.Tests
         public void CanAddOrder()
         {
             CalculateTotals calculator = new CalculateTotals();
-            OrderManager manager = OrderManagerFactory.Create();
+            OrderManager manager = new OrderManager(new OrderRepository(), new ProductRepository(), new TaxesRepository());
             Order testOrder = new Order()
             {
                 OrderDate = new DateTime(2020, 01, 01),
@@ -62,7 +64,7 @@ namespace FloorMastery.Tests
             DateTime orderDate = new DateTime(2017, 03, 03);
             int orderNumber = 1;
 
-            OrderManager manager = OrderManagerFactory.Create();
+            OrderManager manager = new OrderManager(new OrderRepository(), new ProductRepository(), new TaxesRepository());
             OrderLookupResponse response = manager.FindSelectOrder(orderNumber, orderDate);
 
             Order selectOrder = response.IndivOrder;

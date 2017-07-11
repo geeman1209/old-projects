@@ -22,6 +22,10 @@ namespace FloorMastery.Data
         {
             _formattedPath = CreateFormattedFile(orderDate);
             List<Order> orders = ShowOrders(orderDate);
+            if(orders == null)
+            {
+                 orders = new List<Order>();
+            }
 
             if (!File.Exists(_formattedPath))
             {
@@ -46,25 +50,29 @@ namespace FloorMastery.Data
 
             orders.Remove(order);
 
+            Order firstOrder = orders.Find(o => o.OrderNumber == 1);
+
+            if (orders.Count > 0)
+            {
+                if(orders.Exists(o => o.OrderNumber == 1))
+                {
+                    firstOrder.OrderNumber = 1;
+                }
+                else
+                {
+                    foreach (var ord in orders)
+                    {
+                        --ord.OrderNumber;
+                    }
+                }
+            }
+
             CreateFile(orders);
         }
 
-        public void EditOrder(DateTime orderDate, Order order)
+        public void CreateEditOrder(List<Order> orders)
         {
-            _formattedPath = CreateFormattedFile(orderDate);
-
-            if (!File.Exists(_formattedPath))
-            {
-                throw new Exception("File does not exist.");
-            }
-            else
-            {
-                List<Order> orders = ShowOrders(orderDate);
-                int orderLocation = orders.FindIndex(o => o.OrderNumber == order.OrderNumber);
-                order = orders[orderLocation];
-
-                CreateFile(orders); 
-            }
+                CreateFile(orders);
         }
 
         public Order FindIndivOrder(int orderNumber, DateTime date)
@@ -95,7 +103,6 @@ namespace FloorMastery.Data
 
                         string[] columns = line.Split(',');
 
-                        //newOrder.OrderDate = DateTime.Parse(columns[0]);
                         newOrder.OrderNumber = int.Parse(columns[0]);
                         newOrder.CustomerName = columns[1];
                         newOrder.State = columns[2];
@@ -104,6 +111,10 @@ namespace FloorMastery.Data
                         newOrder.Area = decimal.Parse(columns[5]);
                         newOrder.CostPerSquareFoot = decimal.Parse(columns[6]);
                         newOrder.LaborCostPerSquareFoot = decimal.Parse(columns[7]);
+                        newOrder.MaterialCost = decimal.Parse(columns[8]);
+                        newOrder.LaborCost = decimal.Parse(columns[9]);
+                        newOrder.Tax = decimal.Parse(columns[10]);
+                        newOrder.Total = decimal.Parse(columns[11]);
 
                         orders.Add(newOrder);
                     }
@@ -112,7 +123,7 @@ namespace FloorMastery.Data
             }
             else
             {
-                throw new Exception("File path does not exist");
+                return null;
             }
             return orders;
         }
@@ -123,7 +134,7 @@ namespace FloorMastery.Data
 
             using (StreamWriter writer = new StreamWriter(_formattedPath))
             {
-                writer.WriteLine("OrderNumber, CustomerName, State, TaxRate, ProductType, Area, CostPerSquareFoot, LaborCostPerSquareFoot, MaterialCost, LaborCost, Tax, Total");
+                writer.WriteLine("OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot,LaborCostPerSquareFoot,MaterialCost,LaborCost,Tax,Total");
                 foreach(var order in Order)
                 {
                     writer.WriteLine(CreateOrderLine(order));
@@ -133,7 +144,12 @@ namespace FloorMastery.Data
 
         private string CreateOrderLine(Order order)
         {
-            return string.Format($"{order.OrderNumber},{order.CustomerName.ToString()}, {order.State.ToString()}, {order.TaxRate}, {order.ProductType.ToString()}, {order.CostPerSquareFoot}, {order.LaborCostPerSquareFoot}, {order.MaterialCost},{order.LaborCost}, {order.Tax}, {order.Total}");
+            decimal formattedMaterials = Convert.ToDecimal(string.Format("{0:0.00}", order.MaterialCost));
+            decimal formattedLabor = Convert.ToDecimal(string.Format("{0:0.00}", order.LaborCost));
+            decimal formattedTax = Convert.ToDecimal(string.Format("{0:0.00}", order.Tax));
+            decimal formattedTotal = Convert.ToDecimal(string.Format("{0:0.00}", order.Total));
+
+            return string.Format($"{order.OrderNumber},{order.CustomerName.ToString()},{order.State.ToString()},{order.TaxRate},{order.ProductType.ToString()},{order.Area},{order.CostPerSquareFoot},{order.LaborCostPerSquareFoot},{formattedMaterials},{formattedLabor},{formattedTax},{formattedTotal}");
         }
 
         private string CreateFormattedFile(DateTime orderDate)
@@ -142,9 +158,15 @@ namespace FloorMastery.Data
             return formattedPath;
         }
 
-          Order IOrder.EditOrder(DateTime orderDate, Order order)
+        public Order EditOrder(DateTime orderDate, Order order)
         {
-            throw new NotImplementedException();
-        } 
+            _formattedPath = CreateFormattedFile(orderDate);
+
+            List<Order> orders = ShowOrders(orderDate);
+            int orderLocation = orders.FindIndex(o => o.OrderNumber == order.OrderNumber);
+            orders[orderLocation] = order;
+            CreateEditOrder(orders);
+            return order;
+        }
     }
 }

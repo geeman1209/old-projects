@@ -68,6 +68,7 @@ namespace FloorMastery.BLL.Rules
         public static Response CheckProduct(List<Products> product, string input)
         {
             Response response = new Response();
+            bool productName = product.Exists(p => p.ProductType.ToUpper() == input.ToUpper());
 
             if (string.IsNullOrEmpty(input))
             {
@@ -76,7 +77,7 @@ namespace FloorMastery.BLL.Rules
                 return response;
             }
 
-            else if (input.Equals(product.Find(o => o.ProductType.ToLower() != input.ToLower())))
+            else if (productName == false)
             {
                 response.Success = false;
                 response.Message = "This product is not available.";
@@ -93,6 +94,7 @@ namespace FloorMastery.BLL.Rules
         public Response CheckState(List<Taxes> taxes, string input)
         {
             Response response = new Response();
+            bool stateName = taxes.Exists(s => s.StateName.ToUpper() == input.ToUpper());
 
             if (string.IsNullOrEmpty(input))
             {
@@ -101,7 +103,7 @@ namespace FloorMastery.BLL.Rules
                 return response;
             }
 
-            else if (input.Equals(taxes.Find(o => o.StateName.ToLower() != input.ToLower())))
+            else if (stateName == false)
             {
                 response.Success = false;
                 response.Message = "The tax rate for this state is currently unavailable";

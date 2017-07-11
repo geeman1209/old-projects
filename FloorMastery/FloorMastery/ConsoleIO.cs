@@ -12,20 +12,25 @@ namespace FloorMastery
 {
     public class ConsoleIO
     {
+
         public static void DisplayOrderDetails(List<Order> order)
         {
             foreach (Order ord in order)
             {
-                CalculateTotals calculator = new CalculateTotals();
+                decimal formattedMaterials = Convert.ToDecimal(string.Format("{0:0.00}", ord.MaterialCost));
+                decimal formattedLabor = Convert.ToDecimal(string.Format("{0:0.00}", ord.LaborCost));
+                decimal formattedTax = Convert.ToDecimal(string.Format("{0:0.00}", ord.Tax));
+                decimal formattedTotal = Convert.ToDecimal(string.Format("{0:0.00}", ord.Total));
+
                 Console.WriteLine("***************************************");
                 Console.WriteLine($"[{ord.OrderNumber}][{ord.OrderDate}]");
                 Console.WriteLine($"[{ord.CustomerName}]");
                 Console.WriteLine($"[{ord.State}]");
                 Console.WriteLine($"Product:[{ord.ProductType}]");
-                Console.WriteLine($"Materials:[{calculator.MaterialCost(ord)}]");
-                Console.WriteLine($"Labor:[{calculator.LaborCost(ord)}]");
-                Console.WriteLine($"Tax:[{calculator.Tax(ord)}]");
-                Console.WriteLine($"Total:[{calculator.Total(ord)}]");
+                Console.WriteLine($"Materials:[{formattedMaterials}]");
+                Console.WriteLine($"Labor:[{formattedLabor}]");
+                Console.WriteLine($"Tax:[{formattedTax}]");
+                Console.WriteLine($"Total:[{formattedTotal}]");
                 Console.WriteLine("***************************************");
             }
         }
@@ -56,16 +61,20 @@ namespace FloorMastery
 
         public static void DisplayOneOrder(Order order)
         {
-            CalculateTotals calculator = new CalculateTotals();
+            decimal formattedMaterials = Convert.ToDecimal(string.Format("{0:0.00}", order.MaterialCost));
+            decimal formattedLabor = Convert.ToDecimal(string.Format("{0:0.00}", order.LaborCost));
+            decimal formattedTax = Convert.ToDecimal(string.Format("{0:0.00}", order.Tax));
+            decimal formattedTotal = Convert.ToDecimal(string.Format("{0:0.00}", order.Total));
+
             Console.WriteLine("***************************************");
             Console.WriteLine($"[{order.OrderNumber}][{order.OrderDate}]");
             Console.WriteLine($"Customer Name: [{order.CustomerName}]");
             Console.WriteLine($"State: [{order.State}]");
             Console.WriteLine($"Product:[{order.ProductType}]");
-            Console.WriteLine($"Materials:[{calculator.MaterialCost(order)}]");
-            Console.WriteLine($"Labor:[{calculator.LaborCost(order)}]");
-            Console.WriteLine($"Tax:[{calculator.Tax(order)}]");
-            Console.WriteLine($"Total:[{calculator.Total(order)}]");
+            Console.WriteLine($"Materials:[{formattedMaterials}]");
+            Console.WriteLine($"Labor:[{formattedLabor}]");
+            Console.WriteLine($"Tax:[{formattedTax}]");
+            Console.WriteLine($"Total:[{formattedTotal}]");
             Console.WriteLine("***************************************");
         }
 
@@ -180,7 +189,7 @@ namespace FloorMastery
                 if (response.Success == false)
                 {
                     Console.WriteLine($"{response.Message}");
-                    if (response.Message == "The current information will be saved.")
+                    if (response.Message == "\nThe current information will be saved.")
                     {
                         order.Area = order.Area;
                         return order.Area;
@@ -209,11 +218,9 @@ namespace FloorMastery
                 if(response.Success == false)
                 {
                     Console.WriteLine($"{response.Message}");
-                    //return input;
                 }
                 else if(response.Success == true)
                 {
-                    Console.WriteLine("\nChanges made will be saved. Thank you.");
                     return input;
                 }
                 else

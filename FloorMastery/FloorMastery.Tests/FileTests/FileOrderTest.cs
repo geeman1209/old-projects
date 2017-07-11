@@ -1,6 +1,7 @@
 ﻿using FloorMastery.BLL;
 using FloorMastery.Data;
 using FloorMastery.Models;
+using FloorMastery.Models.Responses;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -14,22 +15,25 @@ namespace FloorMastery.Tests.FileTests
     [TestFixture]
    public class FileOrderTest
     {
-        private string _path2test = @"C:\Data\Orders_06012013_Test.txt";
-        private string _path2file = @"C:\Data\Orders_06012013.txt";
+        private string _path2file = @"C:\Data\Orders_06012013_Source.txt";
+        private string _path2test = @"C:\Data\Orders_06012013.txt";
         private string _path = @"C:\Data\";
 
         [SetUp]
+        public void CopyData()
+        {
+            File.Copy(_path2file, _path2test);
+        }
+        [TearDown]
         public void DeleteTestData()
         {
             if (File.Exists(_path2test))
             {
                 File.Delete(_path2test);
-            }
-
-            File.Copy(_path2file, _path2test);
+            } 
         }
 
-        [Test]
+    [Test]
         public void LoadOrders()
         {
             DateTime orderDate = DateTime.Parse("06/01/2013");
@@ -76,6 +80,7 @@ namespace FloorMastery.Tests.FileTests
 
             data.AddOrder(testOrder, orderDate);
 
+            Assert.AreEqual("Scrooge McDuck", testOrder.CustomerName);
             Assert.AreEqual(2, testOrder.OrderNumber);
             Assert.AreEqual(500, calculator.MaterialCost(testOrder));
             Assert.AreEqual(500, calculator.LaborCost(testOrder));
@@ -91,15 +96,15 @@ namespace FloorMastery.Tests.FileTests
 
             Order order = data.FindIndivOrder(orderNumber, orderDate);
 
-            order.CustomerName = "Beastie Boi";
+            order.CustomerName = "BeastieBoi";
             order.ProductType = "Tile";
-            order.Area = 250M;
 
             data.EditOrder(orderDate, order);
 
-            Assert.AreEqual("Beastie Boi", order.CustomerName);
-            Assert.AreEqual("Tile", order.ProductType);
-            Assert.AreEqual(250M, order.Area);
+            Order editedOrder = data.FindIndivOrder(orderNumber, orderDate);
+
+            Assert.AreEqual("BeastieBoi", editedOrder.CustomerName);
+            Assert.AreEqual("Tile", editedOrder.ProductType);
 
         }
 
@@ -114,11 +119,18 @@ namespace FloorMastery.Tests.FileTests
 
             List<Order> orders = data.ShowOrders(orderDate);
 
-            Assert.AreEqual(0, orders.Count);
-                
+            Assert.AreEqual(0, orders.Count);             
         }
 
-          
+          [Test]
+          public void NoDateTest()
+        {
+            DateTime orderDate = DateTime.Parse("05/05/2005");
+            FileOrderRepository data = new FileOrderRepository(_path);
+            List<Order> orders = data.ShowOrders(orderDate);
+
+            Assert.IsNull(orders);          
+        }
             
 
     }

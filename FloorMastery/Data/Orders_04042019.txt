@@ -1,0 +1,2 @@
+OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot,LaborCostPerSquareFoot,MaterialCost,LaborCost,Tax,Total
+1,TestII,michigan,5.75,tile,500,3.50,4.15,1750.00,2075.00,219.937500,4044.937500

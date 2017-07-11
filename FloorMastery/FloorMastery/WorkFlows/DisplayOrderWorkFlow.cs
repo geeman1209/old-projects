@@ -1,4 +1,5 @@
 ﻿using FloorMastery.BLL;
+using FloorMastery.Models;
 using FloorMastery.Models.Responses;
 using System;
 using System.Collections.Generic;
@@ -12,17 +13,16 @@ namespace FloorMastery.WorkFlows
     {
         public void Execute()
         {
-            OrderManager manager = OrderManagerFactory.Create();
-
             Console.Clear();
             Console.WriteLine("Lookup orders");
             Console.WriteLine("-----------------------");
 
             DateTime date = ConsoleIO.GetOrderDate();
+            OrderManager manager = OrderManagerFactory.Create();
             OrderLookupResponse response = manager.LookupOrders(date);
 
             if (response.Success)
-            {                
+            {            
                 ConsoleIO.DisplayOrderDetails(response.Order);
             }
             else
@@ -33,5 +33,6 @@ namespace FloorMastery.WorkFlows
             Console.WriteLine("Press any key to continue");
             Console.ReadKey();
         }
+
     }
 }

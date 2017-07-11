@@ -35,6 +35,7 @@ namespace FloorMastery.WorkFlows
             else
             {
                 Order editOrder = selectOrder.IndivOrder;
+                editOrder.OrderDate = orderDatedit;
                 ConsoleIO console = new ConsoleIO();
 
                 Console.WriteLine($"\nEnter Customer Name({editOrder.CustomerName}): ");
@@ -63,20 +64,21 @@ namespace FloorMastery.WorkFlows
                 decimal area = ConsoleIO.GetEditedArea(editOrder);
                 editOrder.Area = area;
 
+                PutitAllTogether(editOrder);
                 ConsoleIO.DisplayOneOrder(editOrder);
 
                 string YayOrNay = ConsoleIO.GetYesorNo();
 
-                if (YayOrNay == "Y")
+                if (YayOrNay.ToUpper() == "Y")
                 {
                     OrderLookupResponse resp = manager.editOrder(editOrder, editOrder.OrderDate);
-                    if (resp.Success)
+                    if (resp.Success == true)
                     {
                         Console.WriteLine($"Order Number {editOrder.OrderNumber} has been changed");
                     }
 
                 }
-                else if (YayOrNay == "N")
+                else if (YayOrNay.ToUpper() == "N")
                 {
                     Console.WriteLine("\nEdits are cancelled");
                     Console.WriteLine("\nPress any key to continue");
@@ -92,6 +94,18 @@ namespace FloorMastery.WorkFlows
                 Console.ReadKey();
 
             }
+
+        public Order PutitAllTogether(Order order)
+        {
+            CalculateTotals calculator = new CalculateTotals();
+            order.MaterialCost = calculator.MaterialCost(order);
+            order.LaborCost = calculator.LaborCost(order);
+            order.Tax = calculator.Tax(order);
+            order.Total = calculator.Total(order);
+
+            return order;
         }
+
     }
+  }
 

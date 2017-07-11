@@ -20,9 +20,7 @@ namespace FloorMastery.WorkFlows
 
             Console.WriteLine("    Remove Order");
             Console.WriteLine("--------------------");
-           
-            while (true)
-            {
+            
                 DateTime date = ConsoleIO.GetValidDate();
                 OrderLookupResponse response = manager.LookupOrders(date);
                 if (response.Success == false)
@@ -43,7 +41,8 @@ namespace FloorMastery.WorkFlows
                     string YesOrNo = ConsoleIO.GetYesorNo();
                     if (YesOrNo.ToUpper() == "Y")
                     {
-                        manager.deleteOrder(orderNumber, date);
+                    Console.WriteLine("Order will be deleted.");
+                    manager.deleteOrder(orderNumber, date);
                     }
                     else
                     {
@@ -52,7 +51,7 @@ namespace FloorMastery.WorkFlows
                         Console.ReadKey();
                     }
                 }
-            }
+            
         }
     }
 }

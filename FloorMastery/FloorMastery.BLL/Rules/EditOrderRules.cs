@@ -38,6 +38,7 @@ namespace FloorMastery.BLL.Rules
         public static Response VerifyProduct(List<Products> product, string input)
         {
             Response response = new Response();
+            bool productName = product.Exists(p => p.ProductType.ToUpper() == input.ToUpper());
 
             if (string.IsNullOrEmpty(input))
             {
@@ -46,7 +47,7 @@ namespace FloorMastery.BLL.Rules
                 return response;
             }
 
-            else if(input.Equals(product.Find(o => o.ProductType.ToLower() != input.ToLower())))
+            else if(productName == false)
             {
                 response.Success = false;
                 response.Message = "This product is not available.";
@@ -63,6 +64,7 @@ namespace FloorMastery.BLL.Rules
         public Response VerifyState(List<Taxes> taxes, string input)
         {
             Response response = new Response();
+            bool stateName = taxes.Exists(s => s.StateName.ToUpper() == input.ToUpper());
 
             if (string.IsNullOrEmpty(input))
             {
@@ -71,7 +73,7 @@ namespace FloorMastery.BLL.Rules
                 return response;
             }
 
-            else if (input.Equals(taxes.Find(o => o.StateName.ToLower() != input.ToLower())))
+            else if (stateName == false)
             {
                 response.Success = false;
                 response.Message = "The tax rate for this state is currently unavailable";
@@ -147,11 +149,10 @@ namespace FloorMastery.BLL.Rules
                     response.Success = true;
                     return response;
                 case "N":
-                    response.Success = false;
-                    response.Message = "Edited order will be cancelled.";
+                    response.Success = true;
                     return response;
                 default:
-                    response.Message = "Please enter Y or N";
+                    response.Success = false;
                     return response;
             }
            
