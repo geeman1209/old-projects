@@ -103,6 +103,7 @@ namespace FloorMastery.Data
 
                         string[] columns = line.Split(',');
 
+                        newOrder.OrderDate = orderDate;
                         newOrder.OrderNumber = int.Parse(columns[0]);
                         newOrder.CustomerName = columns[1];
                         newOrder.State = columns[2];

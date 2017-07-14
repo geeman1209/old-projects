@@ -78,9 +78,28 @@ namespace FloorMastery.Data
         {
             List<Order> orders = ShowOrders(orderDate);
 
-            Order OnetoDelete = orders.Find(o => o.OrderNumber == orderNumber);
+            int IndextoDelete = orders.FindIndex(o => o.OrderNumber == orderNumber);
 
-            orders.Remove(OnetoDelete);
+            Order OnetoDelete = publicOrders[IndextoDelete];
+
+            publicOrders.Remove(OnetoDelete);
+
+            Order firstOrder = publicOrders.Find(o => o.OrderNumber == 1);
+
+            if (publicOrders.Count > 0)
+            {
+                if (publicOrders.Exists(o => o.OrderNumber == 1))
+                {
+                    firstOrder.OrderNumber = 1;
+                }
+                else
+                {
+                    foreach (var ord in publicOrders)
+                    {
+                        --ord.OrderNumber;
+                    }
+                }
+            }
         }
 
         public Order FindIndivOrder(int orderNumber, DateTime date )

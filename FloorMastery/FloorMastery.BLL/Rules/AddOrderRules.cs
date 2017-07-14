@@ -126,16 +126,16 @@ namespace FloorMastery.BLL.Rules
                 response.Message = "This field cannot be left blank";
                 return response;
             }
+            else if(!decimal.TryParse(Input, out result))
+            {
+                response.Success = false;
+                response.Message = "Enter a valid number";
+                return response;
+            }
             else if (decimal.Parse(Input) < 100)
             {
                 response.Success = false;
                 response.Message = "Please enter an area at least 100 square feet";
-                return response;
-            }
-            else if (!decimal.TryParse(Input, out result))
-            {
-                response.Success = false;
-                response.Message = "Enter a valid number";
                 return response;
             }
             else

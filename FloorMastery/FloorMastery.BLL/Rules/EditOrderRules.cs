@@ -97,16 +97,16 @@ namespace FloorMastery.BLL.Rules
                     response.Message = "\nThe current information will be saved.";
                     return response;
                 }
-                else if (decimal.Parse(Input) < 100)
-                {
-                    response.Success = false;
-                    response.Message = "\nPlease enter an area of at least 100 square feet";
-                    return response;
-                }
-                else if (!decimal.TryParse(Input, out result))
+                 else if (!decimal.TryParse(Input, out result))
                 {
                     response.Success = false;
                     response.Message = "Enter a valid number";
+                    return response;
+                }
+            else if (decimal.Parse(Input) < 100)
+                {
+                    response.Success = false;
+                    response.Message = "\nPlease enter an area of at least 100 square feet";
                     return response;
                 }
                 else
