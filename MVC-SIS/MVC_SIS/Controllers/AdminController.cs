@@ -27,8 +27,15 @@ namespace Exercises.Controllers
         [HttpPost]
         public ActionResult AddMajor(Major major)
         {
-            MajorRepository.Add(major.MajorName);
-            return RedirectToAction("Majors");
+            if (ModelState.IsValid)
+            {
+                MajorRepository.Add(major.MajorName);
+                return RedirectToAction("Majors");
+            }
+            else
+            {
+                return View("AddMajor");
+            }
         }
 
         [HttpGet]
@@ -41,8 +48,16 @@ namespace Exercises.Controllers
         [HttpPost]
         public ActionResult EditMajor(Major major)
         {
-            MajorRepository.Edit(major);
-            return RedirectToAction("Majors");
+            if (ModelState.IsValid)
+            {
+                MajorRepository.Edit(major);
+                return RedirectToAction("Majors");
+            }
+            else
+            {
+                return View("EditMajor");
+            }
+
         }
 
         [HttpGet]
@@ -75,13 +90,22 @@ namespace Exercises.Controllers
         [HttpPost]
         public ActionResult AddState(State state)
         {
-            StateRepository.Add(state);
-            return RedirectToAction("States");
+            if (ModelState.IsValid)
+            {
+                StateRepository.Add(state);
+                return RedirectToAction("States");
+            }
+            else
+            {
+                return View("AddState");
+            }
+
         }
 
         [HttpGet]
         public ActionResult EditState(string stateAbbreviation)
         {
+
             var state = StateRepository.Get(stateAbbreviation);
             return View(state);
         }
@@ -89,8 +113,16 @@ namespace Exercises.Controllers
         [HttpPost]
         public ActionResult EditState(State state)
         {
-            StateRepository.Edit(state);
-            return RedirectToAction("States");
+            if (ModelState.IsValid)
+            {
+                StateRepository.Edit(state);
+                return RedirectToAction("States");
+            }
+            else
+            {
+                return View("EditState");
+            }
+
         }
 
         [HttpGet]
@@ -123,8 +155,16 @@ namespace Exercises.Controllers
         [HttpPost]
         public ActionResult AddCourse(Course course)
         {
-            CourseRepository.Add(course.CourseName);
-            return RedirectToAction("Courses");
+            if (ModelState.IsValid)
+            {
+                CourseRepository.Add(course.CourseName);
+                return RedirectToAction("Courses");
+            }
+            else
+            {
+                return View("AddCourse");
+            }
+
         }
 
         [HttpGet]
@@ -137,8 +177,16 @@ namespace Exercises.Controllers
         [HttpPost]
         public ActionResult EditCourse(Course course)
         {
-            CourseRepository.Edit(course);
-            return RedirectToAction("Courses");
+            if (ModelState.IsValid)
+            {
+                CourseRepository.Edit(course);
+                return RedirectToAction("Courses");
+            }
+            else
+            {
+                return View("EditCourse");
+            }
+
         }
 
         [HttpGet]
