@@ -32,7 +32,7 @@ var zipcode = $('#zipcode').val();
             .attr({class:'list-group-item list-group-item-danger'})
             .text('There has been an error. Please try again'));
     }
-  })
+  });
 
   $.ajax({
     type: "GET",
@@ -65,7 +65,7 @@ var zipcode = $('#zipcode').val();
     }
 
   });
- }
+});
 
 function Month() {
   var d = new Date();
@@ -109,7 +109,7 @@ function checkErrors(input){
 
   input.each(function() {
     if(!this.validity.valid){
-      var error = $('label[for=' +this.id+']' ]).text();
+      var error = $('label[for=' + this.id + ']').text();
       errors.push(error+''+this.validationMessage);
     }
   });
@@ -126,4 +126,4 @@ else
   }
 }
 
-}
+});
