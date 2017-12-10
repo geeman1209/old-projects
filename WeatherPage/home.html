@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+    <title>Weather Page</title>
+      <link href="css/bootstrap.css"
+            rel="stylesheet">
+    </head>
+
+    <body>
+    <div class="container">
+      <h1 class="text-center">Weather Page</h1>
+      <hr/>
+
+<div class="row">
+      <form class="form-horizontal" role="form" id="weather-form">
+        <div class="form-group">
+          <label for="zipcode" class="col-md-3 control-label">
+            Zipcode:
+          </label>
+            <div class="col-md-2">
+            <input type="text"
+                    pattern="[0-9]{5}"
+                    class="form-control"
+                    id="zipcode"
+                    placeholder="zipcode" required/>
+                </div>
+
+
+                    <label for="units" class="col-md-1 control-label text-right">
+                      Units:
+                    </label>
+
+                    <div class="col-md-2">
+                  <select for="units" id="units" class="col-md-2 form-control" required>
+                    <option value="imperial"> Imperial </option>
+                    <option value="metric"> Metric </option>
+                  </select>
+                </div>
+                  <div class="col-md-2">
+                          <button type="button"
+                            id="weather-button"
+                            class="btn btn-default">
+                            Get Weather
+                          </button>
+                    </div>
+                  </div>
+          </form>
+        </div>
+  </div>
+
+        <div class="col-container" id="currentConditions" style="display: none">
+          <h2 id="city"> </h2>
+          <div class="col" id="pic and descript">
+            <p id="icon"></p>
+            <p id="descript"></p>
+          </div>
+
+          <div class="col" id="temp-humidity-wind">
+            <p id="temp"> </p>
+            <p id="humidity"> </p>
+            <p id="wind"> </p>
+          </div>
+        </hr>
+        </div>
+
+        <div class="container" id="five-weather" style="display: none">
+          <div class="row">
+            <h2>Five Day Forecast</h2>
+            <div class="col-md-2" id="Mon"></div>
+            <div class="col-md-2" id="Tues"></div>
+            <div class="col-md-2" id="Wed"></div>
+            <div class="col-md-2" id="Thurs"></div>
+            <div class="col-md-2" id="Fri"></div>
+          </div>
+        </div>
+
+    <script src="js/jquery-2.2.4.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/weather.js"></script>
+    </body>
+  </html>
