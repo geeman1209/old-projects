@@ -25,18 +25,19 @@ $('#purchase-button').click(function(event){
 
             $('#change').val(returnChange);
             $('#totalCash').val("");
-
-         $('#itemsTable').empty();
-
-          $('#purchase-button').click(function(){
+            $('#purchase-button').hide();
+            $('#return-change').hide();
+            $("#reset").removeClass("hidden");
+      
+            
+          $('#reset').click(function(){
             location.reload();
           });
         },
 
         error: function(jqXHR, status){
-
           if(jqXHR.status == 422){
-            $('#messageBox').val(jqXHR.responseJSON.message);
+            $('#messages').val(jqXHR.responseJSON.message);
           }
         }
     });
@@ -54,6 +55,12 @@ $('#return-change').click(function(event){
   $('#messages').val("");
   $('#itemSelect').val("");
   $('#change').val(totalReturn);
+    $('#return-change').hide();
+    $("#reset").removeClass("hidden");
+    
+    $('#reset').click(function(){
+            location.reload();
+          });
 
 });
 
