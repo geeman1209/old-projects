@@ -24,12 +24,12 @@ $('#purchase-button').click(function(event){
             var returnChange = quarters + " "+ dimes +" "+ nickels;
 
             $('#change').val(returnChange);
-            $('#totalCash').val("");
+            $('#totalCash').val("0");
             $('#purchase-button').hide();
             $('#return-change').hide();
             $("#reset").removeClass("hidden");
-      
-            
+
+
           $('#reset').click(function(){
             location.reload();
           });
@@ -38,6 +38,9 @@ $('#purchase-button').click(function(event){
         error: function(jqXHR, status){
           if(jqXHR.status == 422){
             $('#messages').val(jqXHR.responseJSON.message);
+          }
+          else if(jqXHR.status == 404){
+            $('#messages').val("Please choose an item");
           }
         }
     });
@@ -51,13 +54,13 @@ $('#return-change').click(function(event){
 
   var totalReturn = quarters + " Quarters " + dimes + " Dimes " + nickels + " Nickels";
 
-  $('#totalCash').val("");
+  $('#totalCash').val("0");
   $('#messages').val("");
   $('#itemSelect').val("");
   $('#change').val(totalReturn);
     $('#return-change').hide();
     $("#reset").removeClass("hidden");
-    
+
     $('#reset').click(function(){
             location.reload();
           });
@@ -113,6 +116,5 @@ $.ajax({
 function selectItem(id){
   $("#" + id).on("click",function(){
     $('#itemSelect').val(id);
-    $(this).toggleClass("highlight");
 });
 }
